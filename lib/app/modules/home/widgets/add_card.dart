@@ -1,6 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:todoapp/app/core/values/colors.dart';
+import 'package:todoapp/app/data/models/task.dart';
 import 'package:todoapp/app/modules/home/controllers/home_controller.dart';
 import 'package:todoapp/app/modules/widgets/icons.dart';
 import '../../../../app/core/utils/extensions.dart';
@@ -72,11 +76,47 @@ class AddCard extends StatelessWidget {
                           )
                           .toList(),
                     ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      minimumSize: const Size(150, 40),
+                    ),
+                    onPressed: () {
+                      if (homeController.formKey.currentState!.validate()) {
+                        int icon = icons[homeController.chipIndex.value]
+                            .icon!
+                            .codePoint;
+                        String color = icons[homeController.chipIndex.value]
+                            .color!
+                            .toHex();
+
+                        var task = Task(
+                          title: homeController.editController.text,
+                          icon: icon,
+                          color: color,
+                        );
+
+                        Get.back();
+                        homeController.addTask(task)
+                            ? EasyLoading.showSuccess('Create success')
+                            : EasyLoading.showError('Duplicated task');
+                      }
+                    },
+                    child: Text(
+                      'Confirm',
+                      style: GoogleFonts.poppins(),
+                    ),
                   )
                 ],
               ),
             ),
           );
+          homeController.editController.clear();
+          homeController.changeChipIndex(0);
         },
         child: DottedBorder(
           color: Colors.grey,
