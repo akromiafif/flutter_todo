@@ -44,26 +44,34 @@ class AddCard extends StatelessWidget {
                       },
                     ),
                   ),
-                  Wrap(
-                    spacing: 2.0.wp,
-                    children: icons
-                        .map(
-                          (e) => Obx(
-                            () {
-                              final index = icons.indexOf(e);
-                              return ChoiceChip(
-                                label: e,
-                                selected: homeController.chipIndex == index,
-                                onSelected: (bool selected) {
-                                  homeController.chipIndex.value == selected
-                                      ? index
-                                      : 0;
-                                },
-                              );
-                            },
-                          ),
-                        )
-                        .toList(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0.wp),
+                    child: Wrap(
+                      spacing: 2.0.wp,
+                      children: icons
+                          .map(
+                            (e) => Obx(
+                              () {
+                                final index = icons.indexOf(e);
+                                return ChoiceChip(
+                                  selectedColor: Colors.grey[200],
+                                  pressElevation: 0,
+                                  backgroundColor: Colors.white,
+                                  label: e,
+                                  selected:
+                                      homeController.chipIndex.value == index,
+                                  onSelected: (bool selected) {
+                                    homeController.changeChipIndex(index);
+                                    homeController.chipIndex.value == selected
+                                        ? index
+                                        : 0;
+                                  },
+                                );
+                              },
+                            ),
+                          )
+                          .toList(),
+                    ),
                   )
                 ],
               ),
