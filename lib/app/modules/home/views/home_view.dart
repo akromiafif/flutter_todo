@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todoapp/app/data/models/task.dart';
 import 'package:todoapp/app/modules/home/widgets/add_card.dart';
+import 'package:todoapp/app/modules/home/widgets/task_card.dart';
 import '../controllers/home_controller.dart';
 import '../../../../app/core/utils/extensions.dart';
 
@@ -28,6 +30,10 @@ class HomeView extends GetView<HomeController> {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
+                TaskCard(
+                  task: const Task(
+                      title: 'title', icon: 0xE59C, color: '#FF2B60E6'),
+                ),
                 AddCard(),
               ],
             )
