@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:todoapp/app/data/services/storage/services.dart';
@@ -22,6 +23,10 @@ class MyApp extends StatelessWidget {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      builder: (context, myWidget) {
+        myWidget = EasyLoading.init()(context, myWidget);
+        return myWidget;
+      },
     );
   }
 }
