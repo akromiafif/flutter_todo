@@ -18,7 +18,58 @@ class AddCard extends StatelessWidget {
       height: squareWidth / 2,
       margin: EdgeInsets.all(3.0.wp),
       child: InkWell(
-        onTap: () {},
+        onTap: () async {
+          await Get.defaultDialog(
+            titlePadding: EdgeInsets.symmetric(vertical: 5.0.wp),
+            radius: 5,
+            title: 'Task Type',
+            content: Form(
+              key: homeController.formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 3.0.wp),
+                    child: TextFormField(
+                      controller: homeController.editController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Title',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your task title';
+                        }
+
+                        return null;
+                      },
+                    ),
+                  ),
+                  Wrap(
+                    spacing: 2.0.wp,
+                    children: icons
+                        .map(
+                          (e) => Obx(
+                            () {
+                              final index = icons.indexOf(e);
+                              return ChoiceChip(
+                                label: e,
+                                selected: homeController.chipIndex == index,
+                                onSelected: (bool selected) {
+                                  homeController.chipIndex.value == selected
+                                      ? index
+                                      : 0;
+                                },
+                              );
+                            },
+                          ),
+                        )
+                        .toList(),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
         child: DottedBorder(
           color: Colors.grey,
           dashPattern: const [8, 4],
