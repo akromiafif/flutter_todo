@@ -72,7 +72,9 @@ class TaskCard extends StatelessWidget {
                 Text(
                   '${task.todos?.length ?? 0} Task',
                   style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold, color: Colors.grey),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                  ),
                 )
               ],
             ),

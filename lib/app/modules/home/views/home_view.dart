@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
-      floatingActionButton: DragTarget(
+      floatingActionButton: DragTarget<Task>(
         builder: (_, __, ___) {
           return Obx(
             () => FloatingActionButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todoapp/app/modules/home/controllers/home_controller.dart';
@@ -23,6 +24,8 @@ class AddDialog extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       Get.back();
+                      homeController.editController.clear();
+                      homeController.changeTask(null);
                     },
                     icon: const Icon(Icons.close),
                   ),
@@ -31,7 +34,27 @@ class AddDialog extends StatelessWidget {
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (homeController.formKey.currentState!.validate()) {
+                        if (homeController.task.value == null) {
+                          EasyLoading.showError('Please select task type');
+                        } else {
+                          var success = homeController.updateTask(
+                            homeController.task.value!,
+                            homeController.editController.text,
+                          );
+                          if (success) {
+                            EasyLoading.showSuccess('Todo item add success');
+                            Get.back();
+                            homeController.changeTask(null);
+                          } else {
+                            EasyLoading.showError('Todo item already exist');
+                          }
+
+                          homeController.editController.clear();
+                        }
+                      }
+                    },
                     child: Text(
                       'Done',
                       style: GoogleFonts.poppins(
