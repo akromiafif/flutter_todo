@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todoapp/app/data/models/task.dart';
 import 'package:todoapp/app/modules/home/widgets/add_card.dart';
+import 'package:todoapp/app/modules/home/widgets/add_dialog.dart';
 import 'package:todoapp/app/modules/home/widgets/task_card.dart';
 import '../controllers/home_controller.dart';
 import '../../../../app/core/utils/extensions.dart';
@@ -61,7 +62,10 @@ class HomeView extends GetView<HomeController> {
             () => FloatingActionButton(
               backgroundColor:
                   controller.deleting.value ? Colors.red : Colors.blue,
-              onPressed: () {},
+              onPressed: () => Get.to(
+                () => AddDialog(),
+                transition: Transition.downToUp,
+              ),
               child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
             ),
           );
